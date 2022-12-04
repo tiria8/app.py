@@ -9,12 +9,10 @@ POST_PATH = "posts.json"
 main_blueprint = Blueprint('main_blueprint', __name__, template_folder='templates')
 
 @main_blueprint.route('/')
-
 def page_index():
     return render_template('index.html')
 
 @main_blueprint.route("/search")
-
 def search_page():
     s = request.args['s']
     logging.info('Идет поиск')

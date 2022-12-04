@@ -1,6 +1,6 @@
 import logging
 
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, send_from_directory
 from loader.utils import upload_picture
 from functions import write_post
 
@@ -9,19 +9,17 @@ POST_PATH = "posts.json"
 loader_blueprint = Blueprint('loader_blueprint', __name__, template_folder='templates')
 
 @loader_blueprint.route('/post')
-
 def get_post():
     return render_template('post_form.html')
 
 @loader_blueprint.route('/post', methods=["POST"])
-
 def add_post():
     picture = request.files.get("picture")
     content = request.form.get("content")
 
     if not picture or not content:
         return 'Ошибка загрузки'
-    if picture.filename.split(".")[-1] not in ["jpeg", "png"]:
+    if picture.filename.split(".")[-1] not in ["jpeg", "png", "jpg"]:
         logging.info('Неверное расширение файла')
         return 'Неверное расширение файла'
 
